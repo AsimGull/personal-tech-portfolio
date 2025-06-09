@@ -120,7 +120,7 @@ export default function Projects() {
                 </CardContent>
               </div>
             </Card>
-            )) || []}
+            )) || []
           )}
         </div>
 

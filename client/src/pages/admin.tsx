@@ -8,8 +8,8 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { Plus, Edit, Trash2, Eye, Star } from "lucide-react";
 import type { BlogPost, Project } from "@shared/schema";
-import { BlogPostForm } from "@/components/admin/blog-post-form";
-import { ProjectForm } from "@/components/admin/project-form";
+import { BlogPostForm } from "../components/admin/blog-post-form";
+import { ProjectForm } from "../components/admin/project-form";
 
 export default function Admin() {
   const { toast } = useToast();
