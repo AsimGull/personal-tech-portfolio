@@ -104,41 +104,44 @@ export default function Blog() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts?.filter(post => !post.featured).map((post: BlogPost) => (
                 <Card key={post.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow group cursor-pointer">
-                <div className="relative">
-                  <img 
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center space-x-2 mb-3">
-                    <Badge className={getCategoryColor(post.category)}>
-                      {post.category}
-                    </Badge>
-                    <span className="text-muted-foreground text-sm">{post.date}</span>
+                  <div className="relative">
+                    <img 
+                      src={post.imageUrl}
+                      alt={post.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
-                  <h3 className="font-bold text-lg mb-2 group-hover:text-tech-blue transition-colors">
-                    {post.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <Avatar className="w-8 h-8">
-                        <AvatarFallback className="bg-gradient-to-r from-tech-blue to-blue-600 text-white text-sm">
-                          AC
-                        </AvatarFallback>
-                      </Avatar>
-                      <span className="text-sm text-muted-foreground font-medium">Alex Chen</span>
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-2 mb-3">
+                      <Badge className={getCategoryColor(post.category)}>
+                        {post.category}
+                      </Badge>
+                      <span className="text-muted-foreground text-sm">
+                        {new Date(post.createdAt!).toLocaleDateString()}
+                      </span>
                     </div>
-                    <span className="text-muted-foreground text-sm">{post.readTime}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                    <h3 className="font-bold text-lg mb-2 group-hover:text-tech-blue transition-colors">
+                      {post.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      {post.excerpt}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <Avatar className="w-8 h-8">
+                          <AvatarFallback className="bg-gradient-to-r from-tech-blue to-blue-600 text-white text-sm">
+                            AC
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="text-sm text-muted-foreground font-medium">Alex Chen</span>
+                      </div>
+                      <span className="text-muted-foreground text-sm">{post.readTime}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              )) || []}
+            </div>
+          )}
         </div>
 
         {/* Load More Button */}

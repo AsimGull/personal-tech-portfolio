@@ -1,45 +1,15 @@
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github, Bot, TrendingUp, Gamepad2 } from "lucide-react";
+import type { Project } from "@shared/schema";
 
 export default function Projects() {
-  const projects = [
-    {
-      title: "Full-Stack E-commerce Platform",
-      description: "A complete e-commerce solution built with React, Node.js, and PostgreSQL. Features include user authentication, payment processing with Stripe, inventory management, and admin dashboard. Deployed on AWS with CI/CD pipeline.",
-      videoId: "dQw4w9WgXcQ", // Placeholder YouTube ID
-      techStack: ["React", "Node.js", "PostgreSQL", "AWS", "Stripe"],
-      demoUrl: "#",
-      githubUrl: "#"
-    },
-    {
-      title: "AI-Powered Chat Application",
-      description: "An intelligent chat application using OpenAI's GPT API with real-time messaging, conversation history, and custom AI personas. Features include message encryption, file sharing, and voice-to-text integration.",
-      videoId: "dQw4w9WgXcQ", // Placeholder YouTube ID
-      techStack: ["Next.js", "OpenAI API", "Socket.io", "Redis", "TypeScript"],
-      demoUrl: "#",
-      githubUrl: "#",
-      reversed: true
-    },
-    {
-      title: "Real-time Analytics Dashboard",
-      description: "A comprehensive analytics platform that processes millions of data points in real-time. Features interactive charts, custom report generation, data export capabilities, and machine learning-powered insights.",
-      videoId: "dQw4w9WgXcQ", // Placeholder YouTube ID
-      techStack: ["React", "D3.js", "Python", "FastAPI", "MongoDB"],
-      demoUrl: "#",
-      githubUrl: "#"
-    },
-    {
-      title: "Cross-Platform Fitness Tracking App",
-      description: "A comprehensive fitness application built with React Native that tracks workouts, nutrition, and progress. Integrates with wearable devices, includes social features, and provides personalized workout recommendations.",
-      videoId: "dQw4w9WgXcQ", // Placeholder YouTube ID
-      techStack: ["React Native", "Expo", "Firebase", "GraphQL", "Apollo"],
-      demoUrl: "#",
-      githubUrl: "#",
-      reversed: true
-    }
-  ];
+  // Fetch projects from database
+  const { data: projects, isLoading } = useQuery<Project[]>({
+    queryKey: ["/api/projects"],
+  });
 
   const additionalProjects = [
     {
@@ -95,10 +65,24 @@ export default function Projects() {
         </div>
 
         <div className="space-y-16">
-          {projects.map((project, index) => (
-            <Card key={index} className="overflow-hidden shadow-xl">
-              <div className={`grid lg:grid-cols-2 gap-8 ${project.reversed ? 'lg:grid-flow-col-dense' : ''}`}>
-                <div className={`aspect-video bg-black ${project.reversed ? 'lg:col-start-2' : ''}`}>
+          {isLoading ? (
+            [...Array(3)].map((_, i) => (
+              <Card key={i} className="overflow-hidden shadow-xl">
+                <div className="grid lg:grid-cols-2 gap-8">
+                  <div className="aspect-video bg-muted animate-pulse"></div>
+                  <div className="p-8 space-y-4">
+                    <div className="h-6 bg-muted rounded animate-pulse"></div>
+                    <div className="h-4 bg-muted rounded animate-pulse"></div>
+                    <div className="h-4 bg-muted rounded animate-pulse w-3/4"></div>
+                  </div>
+                </div>
+              </Card>
+            ))
+          ) : (
+            projects?.map((project, index) => (
+              <Card key={project.id} className="overflow-hidden shadow-xl">
+                <div className={`grid lg:grid-cols-2 gap-8 ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+                  <div className={`aspect-video bg-black ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
                   <iframe 
                     className="w-full h-full"
                     src={`https://www.youtube.com/embed/${project.videoId}`}
@@ -108,7 +92,7 @@ export default function Projects() {
                     allowFullScreen
                   />
                 </div>
-                <CardContent className={`p-8 ${project.reversed ? 'lg:col-start-1' : ''}`}>
+                <CardContent className={`p-8 ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
                   <h2 className="text-2xl font-bold mb-4">{project.title}</h2>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
                     {project.description}
@@ -136,7 +120,8 @@ export default function Projects() {
                 </CardContent>
               </div>
             </Card>
-          ))}
+            )) || []}
+          )}
         </div>
 
         {/* Additional Projects Preview */}

@@ -20,12 +20,12 @@ export default function Admin() {
   const [showProjectForm, setShowProjectForm] = useState(false);
 
   // Fetch blog posts
-  const { data: blogPosts, isLoading: blogPostsLoading } = useQuery({
+  const { data: blogPosts, isLoading: blogPostsLoading } = useQuery<BlogPost[]>({
     queryKey: ["/api/blog-posts"],
   });
 
   // Fetch projects
-  const { data: projects, isLoading: projectsLoading } = useQuery({
+  const { data: projects, isLoading: projectsLoading } = useQuery<Project[]>({
     queryKey: ["/api/projects"],
   });
 

@@ -225,7 +225,7 @@ export function ProjectForm({ project, onClose, onSuccess }: ProjectFormProps) {
               <div className="flex items-center space-x-2">
                 <Switch
                   id="featured"
-                  checked={form.watch("featured")}
+                  checked={form.watch("featured") || false}
                   onCheckedChange={(checked) => form.setValue("featured", checked)}
                 />
                 <Label htmlFor="featured">Featured Project</Label>
@@ -234,7 +234,7 @@ export function ProjectForm({ project, onClose, onSuccess }: ProjectFormProps) {
               <div className="flex items-center space-x-2">
                 <Switch
                   id="published"
-                  checked={form.watch("published")}
+                  checked={form.watch("published") || false}
                   onCheckedChange={(checked) => form.setValue("published", checked)}
                 />
                 <Label htmlFor="published">Published</Label>

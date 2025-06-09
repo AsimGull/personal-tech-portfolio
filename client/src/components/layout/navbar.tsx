@@ -15,6 +15,7 @@ export function Navbar() {
     { name: "Blog", href: "/blog" },
     { name: "Projects", href: "/projects" },
     { name: "Contact", href: "/contact" },
+    { name: "Admin", href: "/admin" },
   ];
 
   const isActive = (href: string) => {
