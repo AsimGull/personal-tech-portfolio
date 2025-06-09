@@ -1,67 +1,20 @@
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import type { BlogPost } from "@shared/schema";
 
 export default function Blog() {
-  const featuredPost = {
-    title: "Building Scalable Microservices with Docker and Kubernetes",
-    excerpt: "Dive deep into containerization strategies and orchestration patterns that power modern cloud-native applications. Learn how to design resilient systems that scale effortlessly.",
-    image: "https://images.unsplash.com/photo-1605745341112-85968b19335b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600",
-    date: "March 15, 2024",
-    readTime: "12 min read"
-  };
+  // Fetch featured blog post
+  const { data: featuredPost } = useQuery<BlogPost>({
+    queryKey: ["/api/blog-posts/featured"],
+  });
 
-  const blogPosts = [
-    {
-      title: "Advanced React Hooks Patterns",
-      excerpt: "Exploring custom hooks, context patterns, and state management strategies for complex React applications.",
-      image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      category: "React",
-      date: "March 10, 2024",
-      readTime: "5 min read"
-    },
-    {
-      title: "Getting Started with TensorFlow 2.0",
-      excerpt: "A comprehensive guide to building your first neural network with TensorFlow and understanding core concepts.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      category: "AI/ML",
-      date: "March 5, 2024",
-      readTime: "8 min read"
-    },
-    {
-      title: "AWS Lambda Best Practices",
-      excerpt: "Optimizing serverless functions for performance, cost, and reliability in production environments.",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      category: "DevOps",
-      date: "February 28, 2024",
-      readTime: "6 min read"
-    },
-    {
-      title: "PostgreSQL Performance Tuning",
-      excerpt: "Essential techniques for optimizing database queries and improving application performance at scale.",
-      image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      category: "Database",
-      date: "February 20, 2024",
-      readTime: "7 min read"
-    },
-    {
-      title: "Modern Web Security Practices",
-      excerpt: "Protecting web applications from common vulnerabilities and implementing robust security measures.",
-      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      category: "Security",
-      date: "February 15, 2024",
-      readTime: "9 min read"
-    },
-    {
-      title: "React Native vs Flutter: 2024 Comparison",
-      excerpt: "Comparing the leading cross-platform frameworks for mobile development in terms of performance and features.",
-      image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400",
-      category: "Mobile",
-      date: "February 10, 2024",
-      readTime: "12 min read"
-    }
-  ];
+  // Fetch all blog posts
+  const { data: blogPosts, isLoading } = useQuery<BlogPost[]>({
+    queryKey: ["/api/blog-posts"],
+  });
 
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
@@ -86,51 +39,71 @@ export default function Blog() {
         </div>
 
         {/* Featured Hero Blog Post */}
-        <Card className="mb-16 overflow-hidden shadow-2xl">
-          <div className="grid md:grid-cols-2 gap-0">
-            <div className="p-8 md:p-12 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
-              <div className="flex items-center space-x-2 mb-4">
-                <Badge className="bg-blue-500 text-white">Featured</Badge>
-                <span className="text-blue-200 text-sm">{featuredPost.date}</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
-                {featuredPost.title}
-              </h2>
-              <p className="text-blue-100 text-lg mb-6 leading-relaxed">
-                {featuredPost.excerpt}
-              </p>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <Avatar>
-                    <AvatarFallback className="bg-blue-500 text-white">AC</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="font-semibold">Alex Chen</p>
-                    <p className="text-blue-200 text-sm">Senior Developer</p>
-                  </div>
+        {featuredPost && (
+          <Card className="mb-16 overflow-hidden shadow-2xl">
+            <div className="grid md:grid-cols-2 gap-0">
+              <div className="p-8 md:p-12 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+                <div className="flex items-center space-x-2 mb-4">
+                  <Badge className="bg-blue-500 text-white">Featured</Badge>
+                  <span className="text-blue-200 text-sm">
+                    {new Date(featuredPost.createdAt!).toLocaleDateString()}
+                  </span>
                 </div>
-                <Button className="bg-white text-blue-600 hover:bg-blue-50">
-                  Read More
-                </Button>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+                  {featuredPost.title}
+                </h2>
+                <p className="text-blue-100 text-lg mb-6 leading-relaxed">
+                  {featuredPost.excerpt}
+                </p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <Avatar>
+                      <AvatarFallback className="bg-blue-500 text-white">AC</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-semibold">Alex Chen</p>
+                      <p className="text-blue-200 text-sm">Senior Developer</p>
+                    </div>
+                  </div>
+                  <Button className="bg-white text-blue-600 hover:bg-blue-50">
+                    Read More
+                  </Button>
+                </div>
+              </div>
+              <div className="relative">
+                <img 
+                  src={featuredPost.imageUrl}
+                  alt={featuredPost.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-blue-900/20"></div>
               </div>
             </div>
-            <div className="relative">
-              <img 
-                src={featuredPost.image}
-                alt="Container orchestration dashboard"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-blue-900/20"></div>
-            </div>
-          </div>
-        </Card>
+          </Card>
+        )}
 
         {/* Recent Blog Posts Grid */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-8">Recent Posts</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.map((post, index) => (
-              <Card key={index} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow group cursor-pointer">
+          {isLoading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, i) => (
+                <Card key={i} className="overflow-hidden">
+                  <div className="animate-pulse">
+                    <div className="h-48 bg-muted"></div>
+                    <div className="p-6 space-y-4">
+                      <div className="h-4 bg-muted rounded w-3/4"></div>
+                      <div className="h-3 bg-muted rounded w-1/2"></div>
+                      <div className="h-3 bg-muted rounded w-full"></div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {blogPosts?.filter(post => !post.featured).map((post: BlogPost) => (
+                <Card key={post.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow group cursor-pointer">
                 <div className="relative">
                   <img 
                     src={post.image}
