@@ -4,14 +4,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import type { BlogPost } from "@shared/schema";
+//import { Link } from "react-router-dom";
+import { Link } from "wouter";
+
 
 export default function Blog() {
-  // Fetch featured blog post
   const { data: featuredPost } = useQuery<BlogPost>({
     queryKey: ["/api/blog-posts/featured"],
   });
 
-  // Fetch all blog posts
   const { data: blogPosts, isLoading } = useQuery<BlogPost[]>({
     queryKey: ["/api/blog-posts"],
   });
@@ -38,7 +39,6 @@ export default function Blog() {
           </p>
         </div>
 
-        {/* Featured Hero Blog Post */}
         {featuredPost && (
           <Card className="mb-16 overflow-hidden shadow-2xl">
             <div className="grid md:grid-cols-2 gap-0">
@@ -61,12 +61,12 @@ export default function Blog() {
                       <AvatarFallback className="bg-blue-500 text-white">AC</AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-semibold">Alex Chen</p>
+                      <p className="font-semibold">Asim Gul</p>
                       <p className="text-blue-200 text-sm">Senior Developer</p>
                     </div>
                   </div>
-                  <Button className="bg-white text-blue-600 hover:bg-blue-50">
-                    Read More
+                  <Button asChild className="bg-white text-blue-600 hover:bg-blue-50">
+                    <Link to={`/blog/${featuredPost.id}`}>Read More</Link>
                   </Button>
                 </div>
               </div>
@@ -82,7 +82,6 @@ export default function Blog() {
           </Card>
         )}
 
-        {/* Recent Blog Posts Grid */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold mb-8">Recent Posts</h2>
           {isLoading ? (
@@ -103,48 +102,49 @@ export default function Blog() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogPosts?.filter(post => !post.featured).map((post: BlogPost) => (
-                <Card key={post.id} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow group cursor-pointer">
-                  <div className="relative">
-                    <img 
-                      src={post.imageUrl}
-                      alt={post.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="flex items-center space-x-2 mb-3">
-                      <Badge className={getCategoryColor(post.category)}>
-                        {post.category}
-                      </Badge>
-                      <span className="text-muted-foreground text-sm">
-                        {new Date(post.createdAt!).toLocaleDateString()}
-                      </span>
+                <Link to={`/blog/${post.id}`} key={post.id}>
+                  <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow group cursor-pointer">
+                    <div className="relative">
+                      <img 
+                        src={post.imageUrl}
+                        alt={post.title}
+                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
-                    <h3 className="font-bold text-lg mb-2 group-hover:text-tech-blue transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm mb-4">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <Avatar className="w-8 h-8">
-                          <AvatarFallback className="bg-gradient-to-r from-tech-blue to-blue-600 text-white text-sm">
-                            AC
-                          </AvatarFallback>
-                        </Avatar>
-                        <span className="text-sm text-muted-foreground font-medium">Alex Chen</span>
+                    <CardContent className="p-6">
+                      <div className="flex items-center space-x-2 mb-3">
+                        <Badge className={getCategoryColor(post.category)}>
+                          {post.category}
+                        </Badge>
+                        <span className="text-muted-foreground text-sm">
+                          {new Date(post.createdAt!).toLocaleDateString()}
+                        </span>
                       </div>
-                      <span className="text-muted-foreground text-sm">{post.readTime}</span>
-                    </div>
-                  </CardContent>
-                </Card>
+                      <h3 className="font-bold text-lg mb-2 group-hover:text-tech-blue transition-colors">
+                        {post.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm mb-4">
+                        {post.excerpt}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <Avatar className="w-8 h-8">
+                            <AvatarFallback className="bg-gradient-to-r from-tech-blue to-blue-600 text-white text-sm">
+                              AC
+                            </AvatarFallback>
+                          </Avatar>
+                          <span className="text-sm text-muted-foreground font-medium">Asim Gul</span>
+                        </div>
+                        <span className="text-muted-foreground text-sm">{post.readTime}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               )) || []}
             </div>
           )}
         </div>
 
-        {/* Load More Button */}
         <div className="text-center">
           <Button className="bg-tech-blue hover:bg-blue-600 text-white shadow-lg">
             Load More Posts

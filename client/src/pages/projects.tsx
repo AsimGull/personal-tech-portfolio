@@ -14,18 +14,21 @@ export default function Projects() {
   const additionalProjects = [
     {
       icon: <Bot className="text-blue-600" />,
-      title: "Chatbot Framework",
-      description: "Open-source conversational AI framework"
+      title: "Phishing email Detector", 
+      description: "AI BERT model to detect phishing emails, full dissertation project"
+      
     },
     {
       icon: <TrendingUp className="text-green-600" />,
-      title: "Stock Predictor",
-      description: "ML model for financial market analysis"
+      title: "DDOS Attack classifier",
+      description: "ML model to classify DDOS attacks using network traffic data, full dissertation project"
+      
     },
     {
       icon: <Gamepad2 className="text-purple-600" />,
-      title: "Browser Game",
-      description: "WebGL-based multiplayer game"
+      title: "Malware detection by machine learning",
+      
+      description: "Detecting malware using machine learning techniques, full dissertation project"
     }
   ];
 
@@ -107,16 +110,22 @@ export default function Projects() {
                     ))}
                   </div>
 
-                  <div className="flex space-x-4">
-                    <Button className="bg-tech-blue hover:bg-blue-600 text-white">
-                      <Github className="w-4 h-4 mr-2" />
-                      View Code
-                    </Button>
-                    <Button variant="outline">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Live Demo
-                    </Button>
-                  </div>
+                 <div className="flex space-x-4">
+  <Button asChild className="bg-tech-blue hover:bg-blue-600 text-white">
+    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+      <Github className="w-4 h-4 mr-2" />
+      View Code
+    </a>
+  </Button>
+
+  <Button asChild variant="outline">
+    <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+      <ExternalLink className="w-4 h-4 mr-2" />
+      Live Demo
+    </a>
+  </Button>
+</div>
+
                 </CardContent>
               </div>
             </Card>
@@ -140,9 +149,12 @@ export default function Projects() {
               </Card>
             ))}
           </div>
-          <Button variant="outline" className="text-tech-blue hover:text-blue-600">
-            View All Projects on GitHub →
-          </Button>
+          
+          <Button asChild variant="outline" className="text-tech-blue hover:text-blue-600">
+  <a href="https://github.com/AsimGull/Data-Science-Projects" target="_blank" rel="noopener noreferrer">
+    View All Projects on GitHub →
+  </a>
+</Button>
         </div>
       </div>
     </div>

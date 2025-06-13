@@ -11,6 +11,8 @@ import {
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc, and } from "drizzle-orm";
+import dotenv from "dotenv";
+dotenv.config();
 
 export interface IStorage {
   // Contact messages

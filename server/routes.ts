@@ -3,6 +3,26 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactMessageSchema, insertBlogPostSchema, insertProjectSchema } from "@shared/schema";
 import { z } from "zod";
+import dotenv from "dotenv";
+import auth from 'basic-auth';
+dotenv.config();
+
+
+
+function requireAdminAuth(req, res, next) {
+  const user = auth(req);
+  const username = process.env.ADMIN_USERNAME;
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (user && user.name === username && user.pass === password) {
+    return next();
+  }
+
+  res.set('WWW-Authenticate', 'Basic realm="Admin Area"');
+  return res.status(401).send('Authentication required.');
+}
+
+
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission endpoint
@@ -111,6 +131,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  
   // Project routes
   app.get("/api/projects", async (req, res) => {
     try {

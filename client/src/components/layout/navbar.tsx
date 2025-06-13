@@ -14,10 +14,9 @@ export function Navbar() {
     { name: "Home", href: "/" },
     { name: "Blog", href: "/blog" },
     { name: "Projects", href: "/projects" },
-    { name: "Contact", href: "/contact" },
-    { name: "Admin", href: "/admin" },
+    { name: "Contact", href: "/contact" }
   ];
-
+{/* name: "Admin", href: "/admin" */}
   const isActive = (href: string) => {
     if (href === "/" && location === "/") return true;
     if (href !== "/" && location.startsWith(href)) return true;
@@ -26,13 +25,14 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-white/80 dark:bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 bg-gradient-to-br from-tech-blue to-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">AC</span>
+              <span className="text-white font-bold text-lg">AG</span>
             </div>
-            <span className="font-semibold text-xl text-foreground">Alex Chen</span>
+            <img src="/favicon.png" alt="Logo" className="h-8 w-8" />
+            <span className="font-semibold text-xl text-foreground">Asim Gul</span>
           </Link>
 
           {/* Desktop Navigation */}

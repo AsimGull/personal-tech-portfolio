@@ -67,24 +67,23 @@ export default function Contact() {
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email",
-      value: "alex.chen@example.com",
-      href: "mailto:alex.chen@example.com",
+      value: "m.asimgull@gmail.com",
+      href: "mailto:m.asimgull@gmail.com",
       color: "bg-blue-100 dark:bg-blue-900/20 text-blue-600"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Location",
-      value: "San Francisco, CA",
+      value: "London, UK",
       color: "bg-green-100 dark:bg-green-900/20 text-green-600"
     },
-    {
+    /*{
       icon: <Phone className="w-6 h-6" />,
       title: "Phone",
       value: "+1 (234) 567-8900",
       href: "tel:+1234567890",
       color: "bg-purple-100 dark:bg-purple-900/20 text-purple-600"
-    },
-    {
+    },*/{
       icon: <Clock className="w-6 h-6" />,
       title: "Response Time",
       value: "Usually within 24 hours",
@@ -96,7 +95,7 @@ export default function Contact() {
     {
       icon: <Linkedin className="w-5 h-5" />,
       name: "LinkedIn",
-      href: "https://linkedin.com/in/alexchen",
+      href: "https://linkedin.com/in/asimgulkhan",
       color: "hover:bg-blue-100 dark:hover:bg-blue-900/20"
     },
     {
@@ -107,14 +106,14 @@ export default function Contact() {
     },
     {
       icon: <Twitter className="w-5 h-5" />,
-      name: "Twitter",
-      href: "https://twitter.com/alexchen",
+      name: "X",
+      href: "https://twitter.com/Asim__Gul",
       color: "hover:bg-blue-100 dark:hover:bg-blue-900/20"
     },
     {
       icon: <Mail className="w-5 h-5" />,
       name: "Email",
-      href: "mailto:alex.chen@example.com",
+      href: "mailto:m.asimgull@gmail.com",
       color: "hover:bg-red-100 dark:hover:bg-red-900/20"
     }
   ];

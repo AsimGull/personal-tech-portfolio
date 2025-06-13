@@ -6,14 +6,14 @@ export function Footer() {
 
   return (
     <footer className="bg-tech-dark text-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <div className="w-10 h-10 bg-gradient-to-br from-tech-blue to-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">AC</span>
+                <img src="/favicon.png" alt="Logo" className="h-8 w-8" />
               </div>
-              <span className="font-semibold text-xl">Alex Chen</span>
+              <span className="font-semibold text-xl">Asim Gul</span>
             </div>
             <p className="text-slate-300 mb-6 leading-relaxed">
               Passionate software developer focused on building innovative solutions with modern technologies. 
@@ -21,16 +21,16 @@ export function Footer() {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="https://github.com" 
-                target="_blank" 
+                href="https://github.com/AsimGull" 
+                target="https://github.com/AsimGull" 
                 rel="noopener noreferrer"
                 className="text-slate-300 hover:text-white transition-colors"
               >
                 <Github className="w-6 h-6" />
               </a>
               <a 
-                href="https://linkedin.com" 
-                target="_blank" 
+                href="https://www.linkedin.com/in/asimgulkhan/" 
+                target="https://www.linkedin.com/in/asimgulkhan/" 
                 rel="noopener noreferrer"
                 className="text-slate-300 hover:text-white transition-colors"
               >
@@ -45,7 +45,7 @@ export function Footer() {
                 <Twitter className="w-6 h-6" />
               </a>
               <a 
-                href="mailto:alex.chen@example.com"
+                href="mailto:m.asimgull@gmail.com"
                 className="text-slate-300 hover:text-white transition-colors"
               >
                 <Mail className="w-6 h-6" />
@@ -76,7 +76,7 @@ export function Footer() {
         
         <div className="border-t border-slate-700 mt-8 pt-8 text-center">
           <p className="text-slate-300">
-            &copy; {currentYear} Alex Chen. All rights reserved. Built with ❤️ and modern web technologies.
+            &copy; {currentYear} Asim Gul. All rights reserved. Built with ❤️ and modern web technologies.
           </p>
         </div>
       </div>
